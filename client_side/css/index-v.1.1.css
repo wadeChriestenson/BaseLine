@@ -6,8 +6,9 @@ body{
     flex-direction: column;
     flex-wrap: wrap;
     width: 101vw;
-    height: fit-content;
+    height: 100vh;
     margin-left: -1vw;
+    overflow-x: hidden;
 
 
 }
