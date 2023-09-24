@@ -1,12 +1,11 @@
 window.onload = function () {
+  // Function to create and display the lower 48 states of the usa map
   zingchart.loadModules('maps, maps-usa', function (e) {
     const usa_map_config = {
       backgroundColor: 'none', // This is in the root
       plotarea: {
         backgroundColor: 'transparent',
         margin: 'dynamic',
-        marginLeftOffset: '-10%',
-        marginRightOffset: '10%',
         hoverState: {
           backgroundColor: 'blue'
         },
