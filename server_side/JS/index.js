@@ -33,13 +33,11 @@ window.onload = function () {
       id: 'usa_map',
       data: usa_map_config
     });
-
-
     // Function to gather state ID on click and load county map of state using ID
     zingchart.bind('usa_map', 'shape_click', function (e) {
       let new_map_id = 'usa_' + String(e.shapeid).toLowerCase();
       let state_id = String(e.shapeid).toLowerCase();
-      console.log('usa_map', new_map_id, state_id)
+      console.log(new_map_id, state_id)
       let map_name = 'maps, maps-usa_'.concat(state_id)
 
       zingchart.loadModules(map_name, function (e) {
@@ -83,6 +81,35 @@ window.onload = function () {
     zingchart.bind('county_map', 'shape_click', function (e) {
       let county_id = String(e.shapeid);
       console.log(county_id)
+      const county_snap_shot = "./server_side/csv/dash_sum_snp.csv";
+      console.log(county_snap_shot)
+      fetch(county_snap_shot)
+          .then(response => response.text())
+          .then(data => {
+            // Split the CSV data into rows
+            const rows = data.split("\n");
+
+            // Find the row that matches the two-character ID
+            let matchingRow = null;
+            for (const row of rows) {
+              const columns = row.split(",");
+              if (columns[3] === county_id) {
+                matchingRow = columns;
+                break;
+              }
+            }
+
+            if (matchingRow) {
+              // Do something with the matching row data
+              console.log("Matching Row:", matchingRow);
+            } else {
+              // Handle the case where no matching ID was found
+              console.log("ID not found");
+            }
+          })
+          .catch(error => {
+            console.error("Error fetching data:", error);
+          });
     })
   })
 }
